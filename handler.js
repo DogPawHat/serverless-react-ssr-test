@@ -1,12 +1,13 @@
 'use strict';
 
 const server = require('./server.js');
-const serverless = require('serverless-http');
+const serverless = require('aws-serverless-express');
 
-module.exports.hello = (event, context, callback) => {
+module.exports.hello = (event, context) => {
   console.log(event); // Contains incoming request data (e.g., query params, headers and more)
 
   server.then(app => {
-    serverless(app)(event, context, callback);
+    const server = serverless.createServer(app);
+    serverless.proxy(server, event, context);
   });
 };
