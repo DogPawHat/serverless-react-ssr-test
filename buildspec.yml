@@ -1,0 +1,30 @@
+version: 0.2
+
+env:
+  variables:
+    NODE_ENV: "production"
+            
+phases:
+  install:
+    commands:
+      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+      - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+      - apt-get update && apt-get install yarn
+      - yarn global add serverless
+  pre_build:
+    commands:
+      - yarn install
+  build:
+    commands:
+      - yarn run build
+      - serverless deploy
+  post_build:
+    commands:
+      - serverless deploy
+# artifacts:
+#   files:
+#     - handler.js
+#     - server.js
+#     - .next/**
+#   discard-paths: yes
+#   base-directory: .
