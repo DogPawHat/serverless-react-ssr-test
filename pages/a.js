@@ -1,3 +1,10 @@
 import React from 'react';
+import Link from 'next/link';
 
-export default () => <div>This is page a</div>
+import Navbar from '../components/Navbar';
+
+export default () => 
+    <div>
+        <Navbar />
+        <h1>This is page A</h1>
+    </div>
