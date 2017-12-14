@@ -55,10 +55,17 @@ package:
 #    - exclude-me-dir/**
 
 functions:
-  index:
+  hello:
     handler: handler.hello
     events:
-      - http: GET
+      - http: GET /
+      - http:
+          path: /{page}
+          method: get
+          request:
+            parameters:
+              paths:
+                page: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
